@@ -7,19 +7,19 @@ import { Container, Row, Col, Alert } from "react-bootstrap";
 import { contactConfig } from "../../content_option";
 
 export const ContactUs = () => {
-  const [formData, setFormdata] = useState({
+  const [formData, setFormData] = useState({
     email: "",
     name: "",
     message: "",
     loading: false,
     show: false,
-    alertmessage: "",
+    alertMessage: "",
     variant: "",
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setFormdata({ loading: true });
+    setFormData({ loading: true });
 
     const templateParams = {
       from_name: formData.email,
@@ -38,17 +38,17 @@ export const ContactUs = () => {
       .then(
         (result) => {
           console.log(result.text);
-          setFormdata({
+          setFormData({
             loading: false,
-            alertmessage: "SUCCESS! ,Thankyou for your messege",
+            alertMessage: "SUCCESS! ,Thank you for your contact.",
             variant: "success",
             show: true,
           });
         },
         (error) => {
           console.log(error.text);
-          setFormdata({
-            alertmessage: `Faild to send!,${error.text}`,
+          setFormData({
+            alertMessage: `Faild to send!,${error.text}`,
             variant: "danger",
             show: true,
           });
@@ -58,7 +58,7 @@ export const ContactUs = () => {
   };
 
   const handleChange = (e) => {
-    setFormdata({
+    setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
@@ -83,22 +83,18 @@ export const ContactUs = () => {
             <Alert
               //show={formData.show}
               variant={formData.variant}
-              className={`rounded-0 co_alert ${
-                formData.show ? "d-block" : "d-none"
-              }`}
-              onClose={() => setFormdata({ show: false })}
+              className={`rounded-0 co_alert ${formData.show ? "d-block" : "d-none"}`}
+              onClose={() => setFormData({ show: false })}
               dismissible
             >
-              <p className="my-0">{formData.alertmessage}</p>
+              <p className="my-0">{formData.alertMessage}</p>
             </Alert>
           </Col>
           <Col lg="5" className="mb-5">
             <h3 className="color_sec py-4">Get in touch</h3>
             <address>
               <strong>Email:</strong>{" "}
-              <a href={`mailto:${contactConfig.YOUR_EMAIL}`}>
-                {contactConfig.YOUR_EMAIL}
-              </a>
+              <a href={`mailto:${contactConfig.YOUR_EMAIL}`}>{contactConfig.YOUR_EMAIL}</a>
               <br />
               <br />
               {contactConfig.hasOwnProperty("YOUR_FONE") ? (
@@ -145,7 +141,7 @@ export const ContactUs = () => {
                 name="message"
                 placeholder="Message"
                 rows="5"
-                value={formData.message}
+                value={formData.message || ""}
                 onChange={handleChange}
                 required
               ></textarea>
