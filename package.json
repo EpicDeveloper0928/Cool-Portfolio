@@ -8,6 +8,7 @@
         "react": "^18.2.0",
         "react-bootstrap": "^2.7.0",
         "react-dom": "^18.2.0",
+        "react-ga4": "^2.1.0",
         "react-helmet-async": "^1.0.7",
         "react-icons": "^4.1.0",
         "react-particles2": "^2.4.3",

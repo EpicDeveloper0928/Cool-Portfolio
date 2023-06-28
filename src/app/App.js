@@ -6,6 +6,7 @@ import AppRoutes from "./routes";
 import Headermain from "../header";
 import AnimatedCursor from "../hooks/AnimatedCursor";
 import "./App.css";
+import ReactGA from "react-ga4";
 
 function _ScrollToTop(props) {
   const { pathname } = useLocation();
@@ -15,6 +16,8 @@ function _ScrollToTop(props) {
   return props.children;
 }
 const ScrollToTop = withRouter(_ScrollToTop);
+
+ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTIC_KEY);
 
 export default function App() {
   return (
