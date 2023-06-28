@@ -8,13 +8,13 @@ jobs:
       - checkout
       - run:
           name: Update NPM
-          command: "sudo npm install -g npm"
+          command: "sudo yarn add -g npm"
       - restore_cache:
           key: dependency-cache-{{ checksum "yarn.json" }}
       - run:
           name: Install Dependencies
           command: yarn
-      - run: npm install --save-dev firebase-tools
+      - run: yarn add -D firebase-tools
       - save_cache:
           key: dependency-cache-{{ checksum "yarn.json" }}
           paths:
