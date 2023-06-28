@@ -10,13 +10,13 @@ jobs:
           name: Update NPM
           command: "sudo npm install -g npm"
       - restore_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
+          key: dependency-cache-{{ checksum "yarn.json" }}
       - run:
           name: Install Dependencies
           command: yarn
       - run: npm install --save-dev firebase-tools
       - save_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
+          key: dependency-cache-{{ checksum "yarn.json" }}
           paths:
             - ./node_modules
       - run:
