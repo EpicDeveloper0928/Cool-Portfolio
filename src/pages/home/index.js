@@ -10,6 +10,7 @@ import "./style.css";
 export const Home = () => {
   return (
     <HelmetProvider>
+      hello
       <section id="home" className="home">
         <Helmet>
           <meta charSet="utf-8" />
