@@ -1,31 +1,21 @@
+# This config is equivalent to both the '.circleci/extended/orb-free.yml' and the base '.circleci/config.yml'
 version: 2.1
-jobs:
-  build:
-    working_directory: ~/project
-    docker:
-      - image: cimg/node:18.16.0
-    steps:
-      - checkout
-      - run:
-          name: Update NPM
-          command: "sudo npm install -g npm"
-      - restore_cache:
-          key: dependency-cache-{{ checksum "yarn.json" }}
-      - run:
-          name: Install Dependencies
-          command: yarn
-      - run: yarn add -D firebase-tools
-      - save_cache:
-          key: dependency-cache-{{ checksum "yarn.json" }}
-          paths:
-            - ./node_modules
-      - run:
-          name: Build application for production
-          command: npm run build
-      - run:
-          name: Deploy app to Firebase
-          command: ./node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN
+
+# Orbs are reusable packages of CircleCI configuration that you may share across projects, enabling you to create encapsulated, parameterized commands, jobs, and executors that can be used across multiple projects.
+# See: https://circleci.com/docs/orb-intro/
+orbs:
+  node: circleci/node@4.7
+
+# Invoke jobs via workflows
+# See: https://circleci.com/docs/configuration-reference/#workflows
 workflows:
-  build-and-deploy:
+  sample: # This is the name of the workflow, feel free to change it to better match your workflow.
+    # Inside the workflow, you define the jobs you want to run.
     jobs:
-      - build
+      - node/test:
+          # This is the node version to use for the `cimg/node` tag
+          # Relevant tags can be found on the CircleCI Developer Hub
+          # https://circleci.com/developer/images/image/cimg/node
+          version: '16.10'
+          # If you are using yarn, change the line below from "npm" to "yarn"
+          pkg-manager: npm
